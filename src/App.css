@@ -1,0 +1,63 @@
+*{
+    /* overflow-x: hidden; */
+}
+.a{
+    overflow-y: hidden;
+}
+h4{
+    overflow-y: hidden;
+}
+
+h3{
+
+    overflow-y: hidden;
+}
+
+h1{
+
+    overflow-y: hidden;
+}
+.checked {
+    color: orange;
+  }
+
+  .job-card {
+    width: 300px;
+    margin: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .job-card:hover {
+    transform: scale(1.05);
+  }
+  .job-image img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+  }
+
+  .job-details {
+    padding: 20px;
+  }
+
+  .job-title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #333;
+  }
+
+  .job-description {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 10px;
+  }
+
+  .job-data {
+    font-size: 0.8rem;
+    color: #777;
+    margin-bottom: 5px;
+  }
