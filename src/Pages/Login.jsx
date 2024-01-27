@@ -1,13 +1,17 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { TextField } from '@mui/material';
 import { Button } from '@mui/material';
 import {  Link } from 'react-router-dom'
 import { RadioGroup,Radio,FormControlLabel,FormLabel,FormControl } from '@mui/material';
 import { loginAPI, registerAPI } from '../Services/allApi';
 import {useNavigate} from 'react-router-dom'
+import Logo from '../Images/Blue Minimalist Letter D Logo.png'
+import { isAuthTokenContext } from '../context/ContextShare';
 
 
 function Login({register}) {
+  const {isAuthToken , setIsAuthToken} = useContext(isAuthTokenContext)
+
     const registerForm = register?true:false
     const [logData,setLogData] = useState(
       {
@@ -74,6 +78,9 @@ const loginfn = async(e)=>{
       console.log(result);
       if (result.status===200) {
           alert("Login Successfull")
+          setIsAuthToken(true)
+          console.log(isAuthToken);
+
           setLogData({
             firstName:"",
             lastName:"",
@@ -91,11 +98,15 @@ const loginfn = async(e)=>{
 
 
           if (result.data.existUser.uType === "Employer") {
+            setIsAuthToken(true)
+
             navigate('/employerHome')
+            window.location.reload()
             
           }
           else{
             navigate('/dashboard')
+            window.location.reload()
           }
 
           //navigate to login
@@ -117,11 +128,14 @@ const loginfn = async(e)=>{
 
 }
   return (
-    <div  className='container d-flex justify-content-center align-items-center ' style={{height:'750px'}} >
+    <div  className='Home-img d-flex justify-content-center align-items-center ' style={{height:'750px'}} >
         <div className="col-lg-4"></div>
-        <div className="col-lg-4 border bg-light rounded p-3 ">
-            <h3><span style={{color:'yellowgreen'}}>Skill</span>Spire</h3>
-            <hr style={{color:'white'}} />
+        <div className="col-lg-4 border bg-light rounded p-3 mb-5">
+        <div className='d-flex'>
+            <img src={Logo} width={'80px'} alt="" />
+            <h2 className='fw-bold mt-3'>Skillspire</h2>
+          </div>
+            <hr  />
 
         { registerForm&&
         <div className='d-flex mb-4  '>
@@ -148,13 +162,13 @@ const loginfn = async(e)=>{
     <FormControlLabel value="Employer" control={<Radio />} label="Employer"  />
   </RadioGroup>
 </FormControl>
-             <Button variant="contained" className='w-100' style={{backgroundColor:'yellowgreen'}} onClick={registerFn}>Register</Button>
+             <Button variant="contained" className='btn btn-success text-light w-100'  onClick={registerFn}>Register</Button>
              <hr style={{color:'white'}} />
              <p className='mt-2 text-center' >Already A User? Click Here To <Link to={'/login'}>Login</Link></p>
         </>
          :
          <>
-             <Button variant="contained" className='w-100' style={{backgroundColor:'yellowgreen'}} onClick={loginfn}>Login</Button >
+             <Button variant="contained" className='btn btn-success text-light w-100'  onClick={loginfn}>Login</Button >
             <hr style={{color:'white'}} />
              <p className='mt-2 text-center' >Dont Have An Account? Click Here To <Link to={'/register'}>Register</Link></p>
          </>}

@@ -2,15 +2,17 @@ import React, { useContext } from 'react';
 import Sidebar from '../components/Sidebar';
 import Table from 'react-bootstrap/Table';
 import { useEffect, useState } from 'react';
-import { deleteJobAPI, userJobsView } from '../Services/allApi';
+import { deleteJobAPI, getRequestAPI, userJobsView } from '../Services/allApi';
 import Collapse from 'react-bootstrap/Collapse';
 import { baseurl } from '../Services/baseurl';
 import EditJob from '../components/EditJob';
 import { EditJobResponseContext } from '../context/ContextShare';
+import Graph from '../components/Graph';
 
 function AdHome() {
   const [allJobs, setAllJobs] = useState({});
   const [openRows, setOpenRows] = useState({}); // State to track open/closed status for each row
+  const [reqData,setReqData] = useState({})
 const{editJobResponse,setEditJobResponse} = useContext(EditJobResponseContext)
   const getAllJob = async () => {
     const token = sessionStorage.getItem('token');
@@ -28,6 +30,33 @@ const{editJobResponse,setEditJobResponse} = useContext(EditJobResponseContext)
     });
     setOpenRows(initialOpenRows);
   };
+
+  const jobRequest = async()=>{
+    const token = sessionStorage.getItem("token")
+        console.log(token);
+        const reqheader = {
+          "Content-Type":"application/json",
+          "Authorization":`Bearer ${token}`
+        }
+
+      const result = await getRequestAPI(reqheader)
+      console.log(result);
+      if (result.status === 200) {
+        setReqData(result.data)
+
+      }
+      else{
+        console.log(result.response.data);
+      }
+
+  }
+  const requests = reqData.length
+
+  useEffect(()=>{
+    jobRequest()
+  },[])
+
+
 console.log(editJobResponse);
   useEffect(() => {
     getAllJob();
@@ -69,28 +98,77 @@ console.log(editJobResponse);
   const jobNo = allJobs.length;
 
   return (
-    <div className='row '>
-      <div className='col-lg-2'>
+    <div className='row Home-img' >
+      <div className='col-lg-2 ' >
         <Sidebar />
       </div>
-      <div className='col-lg-10 '>
-        <div className='row justify-content-evenly mt-3'>
-          <div className='col-lg-3 border shadow text-white  p-5 me-2'>
-            <h3 className='text-center'>
-              <i className='fa-solid fa-clipboard-list me-2'></i>No Of Jobs
+      <div className='col-lg-10 main-content'>
+        <div className='row justify-content-evenly mt-5'>
+     
+          
+          
+          <div className='col-lg-3 border shadow text-dark rounded  me-2' style={{backgroundColor:'#9be7c0'}}>
+            <h3 className='text-center p-3 d-flex justify-content-between'>
+              
+              <h1><i class="fa-solid fa-suitcase text-primary mt-4  "></i></h1>
+                <div className='d-flex flex-column'>
+                <h1 className='text-center text-primary'>{jobNo}</h1>
+                <h5 className='text-secondary'>My Jobs</h5>
+              </div>
+
             </h3>
-            <h1 className='text-center text-danger'>{jobNo}</h1>
           </div>
-          <div className="col-lg-3 border shadow text-white  p-5">
-            <h3 className='text-center'><i class="fa-solid fa-people-group me-2 "></i>Freelancer Collaborations</h3>
-            <h1 className='text-center'>264</h1>
+
+          <div className='col-lg-3 border shadow text-dark rounded  me-2' style={{backgroundColor:'#45bcf2'}}>
+            <h3 className='text-center p-3 d-flex justify-content-between'>
+              
+              <h1><i class="fa-solid fa-file mt-4 text-danger"></i></h1>
+                <div className='d-flex flex-column'>
+                <h1 className='text-center text-danger'>{requests}</h1>
+                <h5 className='text-secondary'>No. Of Applications</h5>
+              </div>
+
+            </h3>
           </div>
-          <div className="col-lg-3 border shadow text-white  p-5">
-            <h3 className='text-center'><i class="fa-solid fa-comment me-2"></i>User Request</h3>
-            <h1 className='text-center'>264</h1>
+
+          <div className='col-lg-3 border shadow text-dark  rounded me-2' style={{backgroundColor:'#f4d99a'}}>
+            <h3 className='text-center p-3 d-flex justify-content-between'>
+              
+              <h1><i class="fa-regular fa-bookmark text-success mt-4"></i></h1>
+                <div className='d-flex flex-column '>
+                <h1 className='text-center text-success'>{jobNo}</h1>
+                <h5 className='text-secondary'>Accepted Requests</h5>
+              </div>
+
+            </h3>
+          </div>
+         
+        </div>
+        <div className="row">
+          <div className="col-lg-6 p-5 m-3 border bg-light shadow">
+            <Graph/>
+
+          </div>
+          <div className="col-lg-5 border shadow m-3 p-3 d-flex flex-column bg-light">
+            <h4>Notifications</h4>
+
+            {
+              reqData?.length>0?
+              reqData.map((item,index)=>(
+                (index+1)%2==0? <h6><i class="fa-solid fa-suitcase text-primary mt-4 me-3  "> </i>{item.name}<span className='text-secondary'> applied for a job</span> {item.jobTitle}</h6>:
+                <h6><i class="fa-solid fa-suitcase text-success mt-4 me-3  "> </i>{item.name}<span className='text-secondary'> applied for a job</span> {item.jobTitle}</h6>
+
+
+              )):
+              <p>Nothing To Display</p>
+            }
+
+
+
+
           </div>
         </div>
-        <div className='row m-5'>
+        <div className='row m-5 Home-img'>
           <div className='col-lg-12'>
             <Table striped bordered hover shadow bg-light style={{backgroundColor:'white'}}>
               <thead>

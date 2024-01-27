@@ -118,13 +118,13 @@ const empProfileUpdate = async(e)=>{
     setIsEmp(true)
   }
   return (
-    <div className='row mt-5 '>
+    <div className='row ' >
         <div className="col-lg-2">
             <Sidebar/>
         </div>
-        <div className="col-lg-9 border shadow rounded  ms-5">
+        <div className="col-lg-9 border shadow rounded home-bgimg ms-5" >
           <div className="row">
-            <div className="col-lg-5 ">
+            <div className="col-lg-5 p-5">
             {isEmp?
               <>
               <label className=' d-flex justify-content-center mb-2' htmlFor="profile">
@@ -136,12 +136,12 @@ const empProfileUpdate = async(e)=>{
           <Form className='w-100 '>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Company Name/Employer Name</Form.Label>
-          <Form.Control type="text" placeholder="Company Name/Employer Name" value={userData.cname} onChange={(e)=>setUserData({...userData,cname:e.target.value})} />
+          <Form.Control className='border rounded' type="text" placeholder="Company Name/Employer Name" value={userData.cname} onChange={(e)=>setUserData({...userData,cname:e.target.value})} />
         </Form.Group>
   
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Category</Form.Label>
-          <Form.Select aria-label="Default select example" onChange={(e)=>setUserData({...userData,category:e.target.value})}>
+          <Form.Select className='border rounded' aria-label="Default select example" onChange={(e)=>setUserData({...userData,category:e.target.value})}>
         <option>Web Development</option>
         <option value="Web Development">Web Development</option>
         <option value="Graphic Design">Graphic Design</option>
@@ -150,24 +150,26 @@ const empProfileUpdate = async(e)=>{
         </Form.Group>
         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
           <Form.Label>Description</Form.Label>
-          <Form.Control as="textarea" rows={3} onChange={(e)=>setUserData({...userData,about:e.target.value})}/>
+          <Form.Control className='border rounded' as="textarea" rows={3} onChange={(e)=>setUserData({...userData,about:e.target.value})}/>
         </Form.Group>
   
           </Form>
             </>:
             
-        <Card style={{ width: '30rem' }}>
+        <Card style={{ width: '25rem' }}>
         <Card.Img variant="top" src={`${baseurl}/uploads/${existingImage}`} />
         <Card.Body>
-          <Card.Title className='text-center '>{userData.cname}</Card.Title>
-          <h4>Category:{userData.category}</h4>
-          <Card.Text>
+          <Card.Title className=' text-center d-flex flex-column fw-bold '>
+           {userData.cname}
+            </Card.Title>
+          <h4>Category:<span style={{float:'right'}}>{userData.category}</span></h4>
+          <Card.Text style={{textAlign:'justify'}}>
            {userData.about}
           </Card.Text>
         <ListGroup className="list-group-flush">
-          <ListGroup.Item>Phone:{userData.phone}</ListGroup.Item>
-          <ListGroup.Item>Email:{userData.email}</ListGroup.Item>
-          <ListGroup.Item>Address:{userData.address}</ListGroup.Item>
+          <ListGroup.Item>Phone:<span  style={{float:'right'}}>{userData.phone}</span></ListGroup.Item>
+          <ListGroup.Item>Email:<span  style={{float:'right'}}>{userData.email}</span></ListGroup.Item>
+          <ListGroup.Item>Address:<span  style={{float:'right'}}>{userData.address}</span></ListGroup.Item>
         </ListGroup>
         
         </Card.Body>
@@ -182,23 +184,23 @@ const empProfileUpdate = async(e)=>{
              <Form>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                 <Form.Label>Phone</Form.Label>
-                <Form.Control type="text" placeholder="Company Name/Employer Name"onChange={(e)=>setUserData({...userData,phone:e.target.value})} />
+                <Form.Control className='border rounded' type="text" placeholder="Company Name/Employer Name"onChange={(e)=>setUserData({...userData,phone:e.target.value})} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                 <Form.Label>Email</Form.Label>
-                <Form.Control type="text" placeholder="Email" value={userData.email} onChange={(e)=>setUserData({...userData,email:e.target.value})} />
+                <Form.Control className='border rounded' type="text" placeholder="Email" value={userData.email} onChange={(e)=>setUserData({...userData,email:e.target.value})} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
         <Form.Label>Address</Form.Label>
-        <Form.Control as="textarea" rows={3} onChange={(e)=>setUserData({...userData,address:e.target.value})}   />
+        <Form.Control className='border rounded' as="textarea" rows={3} onChange={(e)=>setUserData({...userData,address:e.target.value})}   />
       </Form.Group>
               <h3 className='text-center mt-5'>Terms and Conditions:</h3>
               <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
         <Form.Label>Terms & Conditions</Form.Label>
-        <Form.Control as="textarea" rows={3} onChange={(e)=>setUserData({...userData,termsnconditions:e.target.value})}/>
+        <Form.Control className='border rounded' as="textarea" rows={3} onChange={(e)=>setUserData({...userData,termsnconditions:e.target.value})}/>
       </Form.Group>
 <center>
-        <Button variant="outline-success w-75" onClick={empProfileUpdate}>Update</Button>{' '}
+        <Button className=' btn btn-success text-white border rounded' variant="outline-success w-75" onClick={empProfileUpdate}>Update</Button>{' '}
   
 </center>
               </Form>:

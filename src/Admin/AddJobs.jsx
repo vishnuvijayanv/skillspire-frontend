@@ -75,67 +75,70 @@ function AddJobs() {
   }
 
   return (
-    <div className='row mt-5'>
+    <div className='row home-bgimg' style={{backgroundColor:'#9acad8'}} >
       <div className="col-lg-2">
         <Sidebar/>
       </div>
-      <div className="col-lg-6 ">
-        <div>
+      <div className="col-lg-6 p-5 "  >
+        <div className='border shadow rounded p-3 bg-light'>
           <h3 className='text-center'>Add Job</h3>
-        <Form className='w-100 '>
+        <Form className='w-100 ' style={{overflowY:'auto'}}>
       <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
         <Form.Label>Job Title</Form.Label>
-        <Form.Control type="text" placeholder="Job Title" onChange={(e)=>setProject({...project,title:e.target.value})} />
+        <Form.Control className='border rounded bg-light bg-light' type="text" placeholder="Job Title" onChange={(e)=>setProject({...project,title:e.target.value})} />
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
         <Form.Label>Job Category</Form.Label>
-        <Form.Select aria-label="Default select example"  onChange={(e)=>setProject({...project,category:e.target.value})}>
+        <Form.Select className='border rounded bg-light' aria-label="Default select example"  onChange={(e)=>setProject({...project,category:e.target.value})}>
       <option>Select Catgory</option>
       <option value="Web Development">Web Development</option>
       <option value="Graphic Design">Graphic Design</option>
       <option value="Digital Marketting">Digital Marketting</option>
       <option value="Writing">Writing</option>
+      <option value="Media/Communication">Media/Communication</option>
+
 
     </Form.Select>
       </Form.Group>
 
       <Form.Group controlId="formFile" className="mb-3">
         <Form.Label>Image</Form.Label>
-        <Form.Control type="file"  onChange={(e)=>setProject({...project,image:e.target.files[0]})}/>
+        <Form.Control className='border rounded bg-light' type="file"  onChange={(e)=>setProject({...project,image:e.target.files[0]})}/>
       </Form.Group>
 
 
       <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
         <Form.Label>Description</Form.Label>
-        <Form.Control as="textarea" rows={3}  onChange={(e)=>setProject({...project,description:e.target.value})} />
+        <Form.Control className='border rounded bg-light' as="textarea" rows={3}  onChange={(e)=>setProject({...project,description:e.target.value})} />
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
         <Form.Label>Skills Required</Form.Label>
-        <Form.Control type="text" placeholder="Skills"  onChange={(e)=>setProject({...project,skills:e.target.value})} />
+        <Form.Control className='border rounded bg-light' type="text" placeholder="Skills"  onChange={(e)=>setProject({...project,skills:e.target.value})} />
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
         <Form.Label>rates</Form.Label>
-        <Form.Control type="number" placeholder="rates"  onChange={(e)=>setProject({...project,rates:e.target.value})} />
+        <Form.Control  className='border rounded bg-light' type="number" placeholder="rates"  onChange={(e)=>setProject({...project,rates:e.target.value})} />
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
         <Form.Label>Project Type</Form.Label>
-        <Form.Select aria-label="Default select example"  onChange={(e)=>setProject({...project,type:e.target.value})}>
+        <Form.Select aria-label="Default select example" className='border rounded bg-light'  onChange={(e)=>setProject({...project,type:e.target.value})}>
       <option>Select One</option>
       <option value="One-time Task">One-time Task</option>
       <option value="Ongoing Work">Ongoing Work</option>
       <option value="Micro Task">Micro Task</option>
+
     </Form.Select>
 
       </Form.Group>
-      <Button variant="outline-success" onClick={addJobs}>Add Job</Button>{' '}
+      <Button variant="outline-success btn btn-success text-light" onClick={addJobs}>Add Job</Button>{' '}
     </Form>
         </div>
       </div>
-      <div className="col-lg-3">
+      <div className="col-lg-3 mt-5"  >
           <h3 className='text-center'>Terms & Conditions</h3>
           <ul>
         <li><strong>Profile Completeness:</strong> Employers must complete their profiles with accurate and up-to-date information before adding jobs to the platform.</li>

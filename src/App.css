@@ -1,5 +1,5 @@
 *{
-    /* overflow-x: hidden; */
+    overflow-x: hidden;
 }
 .a{
     overflow-y: hidden;
@@ -20,7 +20,20 @@ h1{
 .checked {
     color: orange;
   }
+h5{
+  overflow-y: hidden;
 
+}
+h2{
+  overflow-y: hidden;
+}
+h6{
+  overflow-y: hidden;
+}
+i{
+  overflow-y: hidden;
+
+}
   .job-card {
     width: 300px;
     margin: 20px;
@@ -60,4 +73,70 @@ h1{
     font-size: 0.8rem;
     color: #777;
     margin-bottom: 5px;
+  }
+
+  .H-btn:hover{
+    color: white;
+    background-color:yellowgreen;
+
+  }
+  .bg-img1{
+    background-image: url('https://img.freepik.com/free-vector/stylish-hexagonal-line-pattern-background_1017-19742.jpg?w=1380&t=st=1705719758~exp=1705720358~hmac=5ce0b1566a0e58be34359e3ff8fb3eecba6295e8cde6dec9819d7c91e6cc43c1');
+    background-size: contain;
+  }
+
+  .card-title{
+    overflow-y: hidden;
+  }
+  span{
+    overflow-y: hidden;
+
+  }
+
+  .nav-link:hover{
+    font-size: large;
+    
+  }
+
+  .Home-img{
+    /* background-image: url('https://papers.co/wallpaper/papers.co-vy12-simple-white-pattern-background-8-wallpaper.jpg'); */
+    background-image: url('https://www.fg-a.com/wallpapers/white-background-geo-shapes.jpg');
+    background-size: contain;
+  }
+
+  .home-bgimg{
+    background-image: url('https://thumbs.dreamstime.com/b/white-triangle-mosaic-background-geometric-abstract-eps-60019755.jpg');
+    background-size: contain;
+  }
+  .fixed-sidebar {
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  
+  .main-content {
+    overflow-y: auto;
+    padding-left: 220px;
+  }
+
+  .notification-bgimg{
+    background-image: url('https://img.freepik.com/premium-vector/abstract-composition-with-connecting-dots-lines-white-backround-futuristic-geometric-composition-background-design-works-colorful-wallpaper_691453-108.jpg?w=740');
+    background-size: contain;
+  }
+  
+  .side-menu{
+    height: 40px;
+    padding: 10px;
+    overflow-y: hidden;
+    
+  }
+
+  .side-menu:hover{
+    height: 40px;
+    border: 1px ;
+    padding: 10px;
+    overflow-y: hidden;
+    background-color: #c0e1e4;
+    border-radius: 10px;
+    color: aqua;
   }

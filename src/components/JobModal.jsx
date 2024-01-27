@@ -92,7 +92,7 @@ console.log(applies);
 
   return (
     <div>  <>
-    <Button variant="primary" onClick={handleShow}>
+    <Button variant="light" onClick={handleShow}>
     <i class="fa-solid fa-ellipsis"></i>
     </Button>
 
@@ -107,9 +107,24 @@ console.log(applies);
       </Modal.Header>
       <Modal.Body>
         <div className="row">
-            <div className="col-lg-6"><img src={`${baseurl}/uploads/${data.profile}`} width={'100%'} alt="" />
-</div>
-            <div className="col-lg-6">
+            <div className="col-lg-3"><img src={`${baseurl}/uploads/${data.profile}`} width={'100px'} height={'100px'} style={{borderRadius:'50%'}} alt="" />
+        </div>
+            <div className="col-lg-9 d-flex flex-column">
+
+              <h5 className='fw-bold'>{data.name}</h5>
+
+              <div className='d-flex'>
+                <p style={{fontSize:'14px',color:'aqua'}}>{data.category}</p>
+                <p><i class="fa-solid fa-money-bill-1-wave text-success ms-3 me-2"></i>{data.rates}</p>
+
+              </div>
+
+              <div className='d-flex'>
+                <Button  style={{width:'50px',height:'30px' , overflow:'hidden'}} className='  bg-light  text-dark me-3 d-flex justify-content-center align-items-center' onClick={statusReject}>
+                <i class="fa-solid fa-x"></i>
+        </Button>
+        <Button onClick={statusAccept}  style={{width:'50px',height:'30px', overflow:'hidden'}}  className=' text-dark d-flex justify-content-center align-items-center'><i class="fa-solid fa-check"></i> </Button></div>
+              
               {
                 data?.status == "pending"?
                 <h4>Status <span className='text-warning'>{data.status}</span></h4>:
@@ -136,12 +151,12 @@ console.log(applies);
             </div>
         </div>
       </Modal.Body>
-      <Modal.Footer>
+      {/* <Modal.Footer>
         <Button  className=' btn btn-danger bg-danger text-light' onClick={statusReject}>
           Reject
         </Button>
         <Button onClick={statusAccept} variant="success" className='bg-success text-light'>Accept </Button>
-      </Modal.Footer>
+      </Modal.Footer> */}
     </Modal>
   </></div>
   )

@@ -15,7 +15,8 @@ function Profile() {
     about:"",
     education:"",
     services:"",
-    profile:""
+    profile:"",
+    phone:""
   })
 
   const [existingImage,setExistingImage] = useState("")
@@ -33,6 +34,8 @@ function Profile() {
       education:logUser.education,
       services:logUser.services,
       profile:"",
+      phone:logUser.phone
+
 
       
     })
@@ -60,8 +63,8 @@ function Profile() {
   }
   const saveProfile=async()=>{
     // setUser(true)
-    const {skills,rates,category,about,education,services,profile} = userData
-    if (  !skills || !rates || !category ||  !about  || !education  || !services || !profile) {
+    const {skills,rates,category,about,education,services,profile,phone} = userData
+    if (  !skills || !rates || !category ||  !about  || !education  || !services || !profile || !phone) {
 
       alert("please fill the form completely to continue")
       
@@ -77,6 +80,7 @@ function Profile() {
       reqBody.append("profile",profile)
       const user=  (JSON.parse(sessionStorage.getItem("existingUser"))._id)
       console.log(user);
+      reqBody.append("phone",phone)
 
 
       const token = sessionStorage.getItem("token")
@@ -98,16 +102,19 @@ function Profile() {
     }
   }
   return (
-    <div className='container'>
+    <div className='container ' style={{backgroundColor:"#f0fff0"}}>
 
-      <div className=" container row ">
-      
-        <div className="col-lg-3  border shadow m-3 p-2 rounded">
-          <div className='d-flex justify-content-center align-items-center flex-column'>
-          <label className=' d-flex justify-content-center mb-2' htmlFor="profile">
-              <input id="profile" type="file" style={{display:'none'}}  onChange={(e)=>setUserData({...userData,profile:e.target.files[0]})}  />
 
-              {
+
+      <div className="row">
+        <div className="col-lg-8">
+          <div className="row border shadow">
+            <div className="col-lg-5 p-3">
+            <label className=' d-flex justify-content-center mb-2' htmlFor="profile">
+
+            <input id="profile" type="file" style={{display:'none'}}  onChange={(e)=>setUserData({...userData,profile:e.target.files[0]})}  />
+
+            {
                 existingImage == ""?
                 <img width={'100%'} height={'200px'} src={preview?preview:`https://cdn4.iconfinder.com/data/icons/social-communication/142/add_photo-512.png`} className='justify-content-center' alt="" />:
 
@@ -117,113 +124,122 @@ function Profile() {
 
                 
               }
-  
-          </label>            {/* <input className='w-100  mt-3 h-5 ' type="text" value={"Vishnu"} readOnly />
-            <input className='w-100  mt-3 ' type="text" value={"Vishnu"} readOnly />
+              </label>
 
-            <input className='w-100  mt-3 ' type="text" value={"Vishnu"} readOnly />
-            <input className='w-100  mt-3 ' type="text" value={"Vishnu"} readOnly />
-            <input className='w-100  mt-3 ' type="text" value={"Vishnu"} readOnly /> */}
-           {user?
+              <h6 className='text-success mt-5'><i class="fa-solid fa-circle-dot"></i> I'm Online</h6>
 
-          <>
-             <h3>{userData.username}</h3>
-  
-              <h4>{userData.skills}</h4>
-  
-              <h4>{userData.rates}</h4>
-              <h5>{userData.category}</h5>
-  
-              <Button variant="contained" className='w-100 mt-3' style={{backgroundColor:'yellowgreen'}} onClick={editProfile}>Edit Profile</Button>
-          </>
-            
-            :
-            <Form className='w-100 '>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              {user?
+                <h5 className='mt-3 d-flex'><i class="fa-solid fa-location-dot "><p style={{textAlign:'justify'}}>{userData.education}</p></i></h5>
+                :
+                <Form className='w-100  '>
+                <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                  <Form.Label>Education/Experience:</Form.Label>
+                  <Form.Control className='border' as="textarea" rows={3}  value={userData.education} onChange={(e)=>setUserData({...userData,education:e.target.value})}/>
+                </Form.Group>
+              </Form>
+                }
+            </div>
+            <div className="col-lg-7 p-3">
+            {user?              
+               <>
+              <div className='d-flex justify-content-between'>
+              
+                  <h2 className='fw-bold'>{userData.username} </h2>
+                  <button className='btn btn-primary' onClick={editProfile}><i class="fa-solid fa-plus"></i>Edit Profile</button>
+                </div>
+                <h3 className='mt-3 '>{userData.category}</h3>
+              
+                  <a className='mt-3 '>{userData.email}</a>
+               </>:
+                <Form className='w-100  '>
+            <Form.Group className="mb-3 " controlId="exampleForm.ControlInput1">
               <Form.Label>UserName</Form.Label>
-              <Form.Control type="text" placeholder="Company Name/Employer Name" value={userData.username} 
+              <Form.Control className='border' type="text" placeholder="Company Name/Employer Name" value={userData.username} 
               onChange={(e)=>setUserData({...userData,username:e.target.value})}/>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Skills</Form.Label>
-              <Form.Control type="text" placeholder="Skills"    value={userData.skills}             onChange={(e)=>setUserData({...userData,skills:e.target.value})}
- />
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Rates</Form.Label>
-              <Form.Control type="text" placeholder="Rates"            value={userData.rates}    onChange={(e)=>setUserData({...userData,rates:e.target.value})}
- />
-            </Form.Group>
-      
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Group className="mb-3 " controlId="exampleForm.ControlInput1">
               <Form.Label>Category</Form.Label>
-              <Form.Select aria-label="Default select example"  value={userData.category} onChange={(e)=>setUserData({...userData,category:e.target.value})}>
+              <Form.Select className='border' aria-label="Default select example"  value={userData.category} onChange={(e)=>setUserData({...userData,category:e.target.value})}>
             <option>Web Development</option>
             <option value="web development">Web Development</option>
             <option value="graphic design">Graphic Design</option>
             <option value="Digital Marketing">Digital Marketing</option>
           </Form.Select>
+          </Form.Group>
+            </Form>}
+              
+              <div className='d-flex mt-4'>
+                <div className=' d-flex'>
+                      <span class="fa fa-star  text-secondary me-2"></span>
+                      <span class="fa fa-star  text-secondary me-2"></span>
+                      <span class="fa fa-star  text-secondary me-2"></span>
+                      <span class="fa fa-star  text-secondary me-2"></span>
+                      <span class="fa fa-star  text-secondary me-2"></span>
+                  </div> 
+                  <h5>0.0(0 reviews)</h5>
+                  <h4 className='ms-5'><i class="fa-solid fa-circle-dollar-to-slot text-success me-3"></i>||||||||</h4>
+              </div>
+
+              <hr />
+              <h3 >About Me</h3>
+              {user?
+              <p>{userData.about}</p>:
+              <Form className='w-100 '>
+             <Form.Group className="mb-3 " controlId="exampleForm.ControlTextarea1">
+               <Form.Control className='border' as="textarea" rows={3} value={userData.about} onChange={(e)=>setUserData({...userData,about:e.target.value})}/>
+             </Form.Group>
+           </Form>
+              }
+
+
+            </div>
+          </div>
+        </div>
+        <div className="col-lg-4 ps-5 ">
+          {user?
+          <div className='border shadow'>
+            <h5 className='text-center fw-bold text-dark'>Other Informations</h5> 
+            <hr />
+            <h5 className="mb-3"><i class="fa-solid fa-phone text-primary ms-2 me-2 "></i>Phone<span style={{ float:'right',color:'grey' }}> 
+            </span>{userData.phone}</h5>
+            <h5 className="mb-3"><i class="fa-solid fa-envelope text-primary ms-2 me-2"></i>Email<span style={{ float:'right',color:'grey' }}> {userData.email}</span></h5>
+            <h5 className="mb-3"><i class="fa-solid fa-money-bill-wave text-primary ms-2 me-2"></i>Charges<span style={{ float:'right',color:'grey' }}>{userData.rates}</span></h5>
+          </div>:
+          <div className='border shadow p-3'>
+         <Form>
+            <Form.Group className="mb-3 " controlId="exampleForm.ControlInput1">
+                <Form.Label>Phone</Form.Label>
+                <Form.Control  className='border' type="text" placeholder="Phone Number" value={userData.phone}    onChange={(e)=>setUserData({...userData,phone:e.target.value})}/>
+              </Form.Group>
+              <Form.Group className="mb-3 " controlId="exampleForm.ControlInput1">
+              <Form.Label>Rates</Form.Label>
+              <Form.Control className='border' type="text" placeholder="Rates" value={userData.rates}    onChange={(e)=>setUserData({...userData,rates:e.target.value})}
+ />
             </Form.Group>
-            <Button variant="contained" className='w-100 mt-3' style={{backgroundColor:'yellowgreen'}} onClick={saveProfile}>Save Profile</Button>
-          </Form>
-}
+         </Form>
+        </div>
+          }
+          <div className='border shadow mt-5 p-3' >
+            <h5 className='text-center fw-bold text-dark'>Services Offered</h5> 
+            <hr />
+           { user ?
+           <p>{userData.skills}</p>:
+           <Form >
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Skills</Form.Label>
+              <Form.Control className='border' type="text" placeholder="Skills" value={userData.skills} onChange={(e)=>setUserData({...userData,skills:e.target.value})}
+ />
+            </Form.Group>
+            <Button variant="contained" className='w-100 mt-3 btn-primary'  onClick={saveProfile}>Save Profile</Button>
+
+           </Form>
+
+           }
 
             
+
+
           </div>
-          
-        </div>
-        <div className="col-lg-8 border shadow m-3 p-2 rounded">
-
-          {user?
-            <div className='border shadow rounded p-3 m-4'>
-              <h4>About Me</h4>
-            <p style={{textAlign:'justify'}}>{userData.about}</p>
-          </div>:
-             <Form className='w-100 '>
-             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-               <Form.Label>About Me</Form.Label>
-               <Form.Control as="textarea" rows={3} value={userData.about} onChange={(e)=>setUserData({...userData,about:e.target.value})}/>
-             </Form.Group>
-           </Form>
-          }
-
-          <div className='row p-4 justify-content-center'>
-           { user?
-           <>
-              <div className="col-lg-12 border shadow m-3 p-2 rounded">
-                <h4>Education/Experience:</h4>
-                <p className='w-100 ' style={{wordWrap:'break-word'}}>{userData.education}</p>
-  
-              </div>
-              <div className="col-lg-12 border shadow m-3 p-2 rounded">
-                <h4>Services Offered</h4>
-                <p  style={{wordWrap:'break-word'}}>{userData.services}</p>
-  
-              </div>
-            </>
-            :
-            <>
-            <div className="col-lg-5 border shadow m-3 p-2 rounded">
-            <Form className='w-100 '>
-             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-               <Form.Label>Education/Experience:</Form.Label>
-               <Form.Control as="textarea" rows={3}  value={userData.education} onChange={(e)=>setUserData({...userData,education:e.target.value})}/>
-             </Form.Group>
-           </Form>
-            </div>
-            <div className="col-lg-5 border shadow m-3 p-2 rounded">
-            <Form className='w-100 '>
-             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-               <Form.Label>Services Offered</Form.Label>
-               <Form.Control as="textarea" rows={3}  value={userData.services}  onChange={(e)=>setUserData({...userData,services:e.target.value})} />
-             </Form.Group>
-           </Form>
-            </div>
-          </>}
-          </div>
-
-          
         </div>
       </div>
     </div>
