@@ -34,8 +34,11 @@ i{
   overflow-y: hidden;
 
 }
+img{
+  overflow-x: hidden;
+
+}
   .job-card {
-    width: 300px;
     margin: 20px;
     background-color: #fff;
     border-radius: 10px;
@@ -139,4 +142,29 @@ i{
     background-color: #c0e1e4;
     border-radius: 10px;
     color: aqua;
+  }
+
+  .mini-card{
+    transition: transform 0.3s ease-in-out;
+
+  }
+  .mini-card:hover{
+    transform: scale(1.05);
+    overflow-y: hidden;
+
+  }
+
+  .home{
+    background:rgba(0,0,0,0.5)url('https://www.marketingwords.com/blog/wp-content/uploads/2016/06/happy-guy.jpg');
+    background-size: cover;
+   background-blend-mode: darken;
+
+  }
+
+  .bg{
+    
+      background:url('https://img.freepik.com/free-vector/white-background-with-zigzag-pattern-design_1017-33197.jpg?w=2000');
+      background-size: cover;
+  
+    
   }

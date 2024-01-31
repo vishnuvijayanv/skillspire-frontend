@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Link,useNavigate } from 'react-router-dom';
-import Logo from '../Images/Blue Minimalist Letter D Logo.png'
+import Logo from '../Images/Blue_Minimalist_Letter_D_Logo-removebg-preview.png'
 import { isAuthTokenContext } from '../context/ContextShare';
 
 function Sidebar() {
@@ -70,11 +70,7 @@ function Sidebar() {
           >
             <i class="fa-solid fa-bell me-4 text-primary"></i>Resume Alerts
           </Link>
-          <Link to={'/myjoblistings'}
-            className="w-100 side-menu  text-start mb-3 h-5 text-decoration-none d-block text-dark"
-          >
-            <i class="fa-solid fa-file me-4 text-primary"></i>All Applicants
-          </Link>
+         
           {/* <Link to={'/myjoblistings'}
             className="w-100 side-menu  text-start mb-3 h-5 text-decoration-none d-block text-dark"
           >

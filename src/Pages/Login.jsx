@@ -5,7 +5,7 @@ import {  Link } from 'react-router-dom'
 import { RadioGroup,Radio,FormControlLabel,FormLabel,FormControl } from '@mui/material';
 import { loginAPI, registerAPI } from '../Services/allApi';
 import {useNavigate} from 'react-router-dom'
-import Logo from '../Images/Blue Minimalist Letter D Logo.png'
+import Logo from '../Images/Blue_Minimalist_Letter_D_Logo-removebg-preview.png'
 import { isAuthTokenContext } from '../context/ContextShare';
 
 
@@ -68,8 +68,8 @@ const registerFn = async(e)=>{
 
 const loginfn = async(e)=>{
   e.preventDefault()
-  const {email,password,confirmPassword} = logData
-  if ( !email || !password  || !confirmPassword) {
+  const {email,password} = logData
+  if ( !email || !password ) {
       alert('please fill all details')
       
   }
@@ -144,10 +144,11 @@ const loginfn = async(e)=>{
          </div>}
          <TextField id="outlined-basic" className='me-2 w-100 mb-4' label="Email" variant="outlined" onChange={(e)=>setLogData({...logData,email:e.target.value})} />
          <TextField type='password' id="outlined-basic" className='me-2 w-100 mb-4' label="Password" variant="outlined" onChange={(e)=>setLogData({...logData,password:e.target.value})} />
-         <TextField type='password' id="outlined-basic" className='me-2 w-100 mb-4' label="Confirm Password" variant="outlined" onChange={(e)=>setLogData({...logData,confirmPassword:e.target.value})} />
          
          {registerForm?
         <>
+                 <TextField type='password' id="outlined-basic" className='me-2 w-100 mb-4' label="Confirm Password" variant="outlined" onChange={(e)=>setLogData({...logData,confirmPassword:e.target.value})} />
+
         <FormControl>
   <FormLabel id="demo-radio-buttons-group-label">I am an...</FormLabel>
   <RadioGroup
@@ -162,13 +163,13 @@ const loginfn = async(e)=>{
     <FormControlLabel value="Employer" control={<Radio />} label="Employer"  />
   </RadioGroup>
 </FormControl>
-             <Button variant="contained" className='btn btn-success text-light w-100'  onClick={registerFn}>Register</Button>
+             <Button variant="contained" className='btn btn-success text-light w-100' style={{backgroundColor:'#00A7AC'}} onClick={registerFn}>Register</Button>
              <hr style={{color:'white'}} />
              <p className='mt-2 text-center' >Already A User? Click Here To <Link to={'/login'}>Login</Link></p>
         </>
          :
          <>
-             <Button variant="contained" className='btn btn-success text-light w-100'  onClick={loginfn}>Login</Button >
+             <Button variant="contained" className='btn  text-light w-100' style={{backgroundColor:'#00A7AC'}}  onClick={loginfn}>Login</Button >
             <hr style={{color:'white'}} />
              <p className='mt-2 text-center' >Dont Have An Account? Click Here To <Link to={'/register'}>Register</Link></p>
          </>}

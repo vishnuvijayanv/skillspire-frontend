@@ -102,13 +102,13 @@ function Profile() {
     }
   }
   return (
-    <div className='container ' style={{backgroundColor:"#f0fff0"}}>
+    <div className='container mt-5 ' >
 
 
 
       <div className="row">
-        <div className="col-lg-8">
-          <div className="row border shadow">
+        <div className="col-lg-8" style={{ borderTop: '5px solid #00A7AC' }}>
+          <div className="row  "  >
             <div className="col-lg-5 p-3">
             <label className=' d-flex justify-content-center mb-2' htmlFor="profile">
 
@@ -145,7 +145,7 @@ function Profile() {
               <div className='d-flex justify-content-between'>
               
                   <h2 className='fw-bold'>{userData.username} </h2>
-                  <button className='btn btn-primary' onClick={editProfile}><i class="fa-solid fa-plus"></i>Edit Profile</button>
+                  <button className='btn ' style={{backgroundColor:'#00A7AC'}} onClick={editProfile}><i class="fa-solid fa-plus"></i>Edit Profile</button>
                 </div>
                 <h3 className='mt-3 '>{userData.category}</h3>
               
@@ -195,9 +195,9 @@ function Profile() {
             </div>
           </div>
         </div>
-        <div className="col-lg-4 ps-5 ">
+        <div className="col-lg-4 ps-5 " style={{ borderTop: '5px solid #00A7AC' }}>
           {user?
-          <div className='border shadow'>
+          <div className='border shadow mt-2'>
             <h5 className='text-center fw-bold text-dark'>Other Informations</h5> 
             <hr />
             <h5 className="mb-3"><i class="fa-solid fa-phone text-primary ms-2 me-2 "></i>Phone<span style={{ float:'right',color:'grey' }}> 
@@ -230,7 +230,7 @@ function Profile() {
               <Form.Control className='border' type="text" placeholder="Skills" value={userData.skills} onChange={(e)=>setUserData({...userData,skills:e.target.value})}
  />
             </Form.Group>
-            <Button variant="contained" className='w-100 mt-3 btn-primary'  onClick={saveProfile}>Save Profile</Button>
+            <Button variant="contained" className='w-100 mt-3 ' style={{backgroundColor:'#00A7AC'}} onClick={saveProfile}>Save Profile</Button>
 
            </Form>
 

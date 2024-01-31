@@ -35,23 +35,25 @@ console.log(searchKey);
   return (
   <>
      <div style={{backgroundColor:"#f0ffff"}} className='bg-img'>
-        <div className='container  mt-5 ' >
+        <div className='container-fluid ' >
           <div className="row">
            
             <div className="col-lg-12">
-              <div className="row" >
+              
+              <div className="row home" style={{height:'700px'}} >
                 
-                <div className="col-lg-6 " >
-                  <h2  >Welcome To Skill<span style={{color:' #004F98'}}>Spire</span> </h2>
-                  <p className='mt-5'>"SkillSpire is not just a freelance platform; it's a vibrant community where individual skills blossom into meaningful projects. As a freelancer, find your haven here, where opportunities abound, connections thrive, and your potential is unleashed. Join SkillSpire to embark on a journey where your talents are celebrated, and your freelance aspirations find the perfect platform to flourish."</p>
-                  <div class="input-group mb-3 mt-5 border border-dark" style={{ borderRadius: '50px' }}>
+                <div className="col-lg-6 ms-5 d-flex justify-content-center align-items-center flex-column" >
+                  <h1 style={{color:'#00A7AC'}}>Welcome To Skill<span >Spire</span> </h1>
+                  <p className='text-light' style={{fontSize:'30px',fontWeight:'bold'}}>Jobs are available on your skills, perfect jobs to make bright future & get your choose jobs become a strong.</p>
+                  <p style={{fontSize:'18px',fontWeight:'bold'}} className='mt-3 ms-2 fw-bold text-light' >"SkillSpire is not just a freelance platform; it's a vibrant community where individual skills blossom into meaningful projects. As a freelancer, find your haven here, where opportunities abound, connections thrive, and your potential is unleashed. Join SkillSpire to embark on a journey where your talents are celebrated, and your freelance aspirations find the perfect platform to flourish."</p>
+                  <div class="input-group mb-3 mt-5 border border-light" style={{ borderRadius: '50px' }}>
                     <input type="text" class="form-control" aria-label="" placeholder='Enter to Search' onChange={(e)=>setSearchKey(e.target.value)}/>
-                    <span class="input-group-text"><i className="fas fa-search me-2"></i></span>
+                    <span class="input-group-text"><i className="fas fa-search text-light me-2"></i></span>
                   </div>
     
             
                 </div>
-                <div className="col-lg-6 " >
+                {/* <div className="col-lg-6 " >
                 <Carousel >
                   <Carousel.Item interval={1000} >
                   <img   src="https://cdn.searchenginejournal.com/wp-content/uploads/2016/04/freelancersecrets.jpg" height={'400px'} width={'100%'} alt="" />
@@ -64,30 +66,40 @@ console.log(searchKey);
                   </Carousel.Item>
                 </Carousel>
     
-                </div>
+                </div> */}
               </div>
               <div className="row mt-5 ">
-                <h1 className='text-center mb-2 fw-bold'>Available Works</h1>
+                <h1 className='text-center mb-2 fw-bold' style={{color:'#00A7AC'}}>Available Works</h1>
                 <h5  className='text-center mb-4 text-secondary'>400+ Jobs Available</h5>
   
     
               {allJobs?.length>0?
               allJobs?.map((item)=>(
-                <div className="col-lg-3 mb-3 d-flex justify-content-center d-flex justify-content-center ">
+                <div className="col-lg-3 mb-3 p-2 d-flex justify-content-center d-flex  ">
                 <Link  style={{ textDecoration:'none'}} to={`/jobdetails/${item._id}`}>
-                    <Card className='job-card border-rounded' style={{ width: '18rem' ,height:'26rem',borderRadius:'20px'  ,textDecoration:'none'}}>
-                      <Card.Img variant="top" className='job-image ' height={'170px'} src={`${baseurl}/uploads/${item.image}`} />
+                    <Card className='job-card' style={{ width: '100%' ,height:'29rem',textDecoration:'none'}}>
+                      <Card.Img variant="top" className='job-image p-3 border rounded' height={'200px'} src={`${baseurl}/uploads/${item.image}`} />
                       <Card.Body>
-                        <Card.Title className='card-title fw-bold job-title' style={{color:'black', textDecoration:'none'}}>{item.title}</Card.Title>
+                        <Card.Title className='card-title fw-bold job-title text-center' style={{color:'#00A7AC', textDecoration:'none'}}>{item.title}</Card.Title>
+                        <hr />
                         <Card.Text className=' job-description'  style={{ textDecoration:'none'}}>
                           {item.description.slice(0, 100)}....
                         </Card.Text>
-                        <Card.Text  className='job-data' style={{ textDecoration:'none'}}>
-                          Skills : {item.skills}
+
+                        <Card.Text className=' '  style={{ textDecoration:'none'}}>
+                          {item.description.slice(0, 100)}....
                         </Card.Text>
-                        <Card.Text  className='job-data'  style={{ textDecoration:'none'}}>
-                          Salary : {item.rates}
-                        </Card.Text>
+                        <div className='d-flex justify-content-between p-3'>
+                        <Card.Text  className='job-data p-2'  style={{ textDecoration:'none' ,backgroundColor:'wheat' ,borderRadius:'50px'}}>
+                             {item.type}
+                          </Card.Text>
+                         <Link to={`/jobdetails/${item._id}`} >
+                            <Card.Text  className='job-data' style={{ textDecoration:'none',fontSize:'17px',color:'#00A7AC'}}>
+                               Apply Now
+                            </Card.Text>
+                            
+                         </Link>
+                        </div>
                       </Card.Body>
                     </Card>
                 </Link>

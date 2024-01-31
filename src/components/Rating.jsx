@@ -4,7 +4,7 @@ function Rating() {
   return (
    <>
       <div className='container d-flex justify-content-center align-items-center flex-column mt-5'>
-        <h4 className='text-center fw-bold 'style={{color:' #004F98'}}>CUSTOMER REVIEWS</h4>
+        <h4 className='text-center fw-bold 'style={{color:' #00A7AC'}}>CUSTOMER REVIEWS</h4>
         <h1 className='text-center fs-4'>Let’s Hear It From Them: What Our Customers Are Saying</h1>
       </div>
 

@@ -122,7 +122,7 @@ const empProfileUpdate = async(e)=>{
         <div className="col-lg-2">
             <Sidebar/>
         </div>
-        <div className="col-lg-9 border shadow rounded home-bgimg ms-5" >
+        <div className="col-lg-9 border shadow rounded mt-5 ms-5" >
           <div className="row">
             <div className="col-lg-5 p-5">
             {isEmp?
@@ -206,7 +206,7 @@ const empProfileUpdate = async(e)=>{
               </Form>:
                   
                <>
-                    <h3 className='text-center'>Terms & Conditions</h3>
+                    <h3 className='text-center mt-5'>Terms & Conditions</h3>
                     <ul>
                   <li><strong>Profile Completeness:</strong> Employers must complete their profiles with accurate and up-to-date information before adding jobs to the platform.</li>
           

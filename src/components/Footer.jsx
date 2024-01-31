@@ -28,7 +28,7 @@ const Footer = () => {
 
   const footerStyle = {
     bottom: 0,
-    backgroundColor: '#333',
+    backgroundColor: '#00A7AC',
     color: '#fff',
     padding: '20px',
     display: 'flex',
@@ -49,24 +49,24 @@ const Footer = () => {
   return (
     <div style={footerStyle}>
       <div style={sectionStyle}>
-        <h3>About Us</h3>
-        <p>
+        <h3 >About Us</h3>
+        <p className='text-dark'>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </p>
       </div>
       <div style={sectionStyle}>
-        <h3>Contact Us</h3>
-        <p>Address: 123 Main St, Cityville</p>
-        <p>Email: info@example.com</p>
-        <p>Phone: (555) 123-4567</p>
+        <h3 >Contact Us</h3>
+        <p className='text-dark'>Address: 123 Main St, Cityville</p>
+        <p className='text-dark'>Email: info@example.com</p>
+        <p className='text-dark'>Phone: (555) 123-4567</p>
       </div>
       <div style={sectionStyle}>
         <h3>Custom Section</h3>
-        <p>This is a custom section. Feel free to add whatever content you like here.</p>
+        <p className='text-dark'>This is a custom section. Feel free to add whatever content you like here.</p>
       </div>
       <div style={sectionStyle}>
         <h3>Newsletter</h3>
-        <p>Subscribe to our newsletter for updates and promotions.</p>
+        <p className='text-dark'>Subscribe to our newsletter for updates and promotions.</p>
         <form className='d-flex' onSubmit={handleSubscribe}>
           <input type="email" className='form-control border rounded' placeholder="Enter your email" required />
           <button type="submit" className='btn bg-light ms-2'><i class="fa-solid fa-paper-plane"></i></button>
