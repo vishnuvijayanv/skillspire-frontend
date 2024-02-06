@@ -7,7 +7,7 @@ import { getRequestAPI, statusUpdate } from '../Services/allApi';
 import JobModal from '../components/JobModal';
 import { baseurl } from '../Services/baseurl';
 
-function JobStatus() {
+function MyTeam() {
   const { adminJobData, setAdminJobData } = useContext(AdminJobDataContext);
   const {jobReqStatus,setJobReqStatus} = useContext(jobRequestContext)
 
@@ -41,7 +41,7 @@ function JobStatus() {
       const result = await getRequestAPI(reqheader)
       console.log(result);
       if (result.status === 200) {
-        const pendingRequests = result.data.filter((request) => request.status === "pending");
+        const pendingRequests = result.data.filter((request) => request.status === "Accepted");
         setReqData(pendingRequests)
 
       }
@@ -58,8 +58,8 @@ function JobStatus() {
 
   const shortlist =async (data) => {
     console.log(data);
-
-    setApplies({
+    setApplies((prevApplies) => ({
+      ...prevApplies,
       userID:data.userID,
         jobID:data.jobID,
         name:data.name,
@@ -72,10 +72,8 @@ function JobStatus() {
         jobDesc:data.jobDesc,
         status:"Accepted",
         time:data.time
-    })
+    }));
 
-    console.log(applies);
-  
 
     const id = data._id
     console.log(id);
@@ -101,7 +99,8 @@ function JobStatus() {
 
   const reject =async (data) => {
     console.log(data);
-    setApplies({
+    setApplies((prevApplies) => ({
+      ...prevApplies,
       userID:data.userID,
         jobID:data.jobID,
         name:data.name,
@@ -112,12 +111,10 @@ function JobStatus() {
         rates:data.rates,
         profile:data.profile,
         jobDesc:data.jobDesc,
-        status:"Rejected",
+        status:"rejected",
         time:data.time
-    })
+    }));
 
-    console.log(applies);
-  
 
     const id = data._id
     console.log(id);
@@ -132,9 +129,8 @@ function JobStatus() {
 
     const result = await statusUpdate(id,applies,reqheader)
     console.log(result);
-    jobRequest()
+  
   };
-
   
   // Add useEffect to log the updated state
   useEffect(() => {
@@ -149,7 +145,7 @@ function JobStatus() {
       </div>
       <div className="col-lg-9 container">
 
-        {
+        {/* {
           reqData.length>0?
           reqData.map((item)=>(<div className="row mb-5 border rounded">
           <div className="col-lg-12">
@@ -178,9 +174,9 @@ function JobStatus() {
           </div>
         </div>)):
         <p>Nothing To Display</p>
-        }
+        } */}
 
-        {/* <div className="row">
+        <div className="row">
           <div className="col-lg-12 w-100">
           <div className="table-container ms-5 p-5 border shadow rounded" style={{ maxWidth: '100%', overflow: 'auto' }}>
             <h3 className='fw-bold mb-3'>All Applicants!</h3>
@@ -221,11 +217,11 @@ function JobStatus() {
 </div>
 
           </div>
-        </div> */}
+        </div> 
       </div>
       
     </div>
   );
 }
 
-export default JobStatus;
+export default MyTeam;

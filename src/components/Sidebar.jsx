@@ -22,7 +22,7 @@ function Sidebar() {
   return (
     <div className="" style={{backgroundColor:'#ffffff',position:'fixed'}}>
       <Button variant="secondary" className="d-lg-none" onClick={handleShow}>
-        <i class="fa-solid fa-bars" style={{ color: 'white' }}></i>
+        <i class="fa-solid fa-bars" ></i>
       </Button>
 
       <Offcanvas
@@ -82,6 +82,11 @@ function Sidebar() {
           >
             {' '}
             <i class="fa-solid fa-list-check me-4 text-primary"></i>Job Status
+          </Link>
+          <Link to={'/myteam'}
+            className="w-100 side-menu  text-start mb-3 h-5 text-decoration-none d-block text-dark"
+          >
+            <i class="fa-solid fa-people-group me-4 text-primary"></i>My Team
           </Link>
           <Link
             className="w-100 side-menu  text-start mb-3 h-5 text-decoration-none d-block text-dark"

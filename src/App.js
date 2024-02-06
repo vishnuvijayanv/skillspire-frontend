@@ -12,7 +12,6 @@ import Login from './Pages/Login';
 import Sidebar from './components/Sidebar';
 import MicroTasks from './Pages/MicroTasks';
 import Profile from './Pages/Profile';
-import Wallet from './Pages/Wallet';
 import JobDetails from './components/JobDetails';
 import AdHome from './Admin/AdHome';
 import EmpProfile from './Admin/EmpProfile';
@@ -22,6 +21,8 @@ import Jobs from './components/Jobs';
 import { isAuthTokenContext } from './context/ContextShare'; // Import the ContextShare component
 import ApplyStatus from './Pages/ApplyStatus';
 import Notifications from './Admin/Notifications';
+import Faq from './Pages/Faq';
+import MyTeam from './Admin/MyTeam';
 
 function App() {
   const {isAuthToken,setIsAuthToken} = useContext(isAuthTokenContext)
@@ -37,7 +38,6 @@ function App() {
           <Route path='/sidebar' element={<Sidebar />} />
           <Route path='/microtasks' element={<MicroTasks />} />
           <Route path='/profile' element={<Profile />} />
-          <Route path='/wallet' element={<Wallet />} />
           <Route path='/jobdetails/:id' element={<JobDetails />} />
           <Route path='/employerHome' element={isAuthToken?<AdHome /> : <Home/>} />
           <Route path='/employerProfile' element={<EmpProfile />} />
@@ -46,6 +46,10 @@ function App() {
           <Route path='/myjoblistings' element={<Jobs />} />
           <Route path='/appliedjobs' element={<ApplyStatus/>}/>
           <Route path='/notifications' element={<Notifications/>} />
+          <Route path='/faq'  element={<Faq/>} />
+          <Route path='/myteam'  element={<MyTeam/>} />
+
+
         </Routes>
         <Footer/>
     </div>

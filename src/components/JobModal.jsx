@@ -27,6 +27,7 @@ console.log(applies);
     const statusAccept = async()=>{
       setApplies({
         userID:data.userID,
+        jobID:data.jobID,
         name:data.name,
         email:data.email,
         skills:data.skills,
@@ -35,7 +36,8 @@ console.log(applies);
         rates:data.rates,
         profile:data.profile,
         jobDesc:data.jobDesc,
-        status:"Accepted"
+        status:"Accepted",
+        time:data.time
       })
       const id = data._id
       console.log(id);

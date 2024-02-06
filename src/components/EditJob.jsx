@@ -4,8 +4,10 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import { baseurl } from '../Services/baseurl';
-import { jobUpdate, jobUpdateAPI } from '../Services/allApi';
+import {  jobUpdateAPI } from '../Services/allApi';
 import { EditJobResponseContext, ediJobResponseContext } from '../context/ContextShare';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function EditJob({jobData}) {
     const [show, setShow] = useState(false);
 
@@ -51,7 +53,7 @@ function EditJob({jobData}) {
 const handleUpdate=async()=>{
     const {id,title,category,image,description,skills,type,rates}= jobDetails
     if (!id || !title || !category || !image || !description || !skills || !type || !rates) {
-        alert("please fill the form completly")
+       toast.warning ("please fill the form completly")
         
     }
     else{
@@ -94,7 +96,7 @@ const handleUpdate=async()=>{
               const result = await jobUpdateAPI(id,reqBody,reqheader)
               console.log(result);
               if(result.status==200){
-                alert('Updation Successfull')
+                toast.success('Updation Successfull')
                 setEditJobResponse(result.data)
 
     
@@ -201,6 +203,7 @@ const handleUpdate=async()=>{
           <Button variant="primary" onClick={handleUpdate}>Edit</Button>
         </Modal.Footer>
       </Modal>
+      <ToastContainer position='top-center' theme='colored' autoClose={2000}/>
 
     </>
   )

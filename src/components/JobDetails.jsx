@@ -3,18 +3,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Button } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
-import { appliedAPI, getAJobAPI } from '../Services/allApi';
+import { EmpDetails, appliedAPI, getAJobAPI } from '../Services/allApi';
 import { baseurl } from '../Services/baseurl';
 import { UserJobDataContext } from '../context/ContextShare';
-import Form from 'react-bootstrap/Form';
-import Modal from 'react-bootstrap/Modal';
+import Swal from 'sweetalert2';
 
 function JobDetails() {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
   const { userJobData, setUserJobData } = useContext(UserJobDataContext);
   const params = useParams();
   const pid = params.id;
@@ -34,6 +30,8 @@ function JobDetails() {
     status: "",
     time: ""
   });
+
+ 
 
   const getJobDetails = async () => {
     const token = sessionStorage.getItem('token');
@@ -56,23 +54,50 @@ function JobDetails() {
     }
   };
 
+  console.log(jobData);
+
   useEffect(() => {
     getJobDetails();
-  }, [pid]);
+  }, []);
+
+  useEffect(() => {
+    const employerDetails = async () => {
+      const token = sessionStorage.getItem("token");
+      const reqheader = {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      };
+      const id = jobData.userId;
+      console.log("id", id);
+
+      const data = JSON.parse(sessionStorage.getItem("existingUser"))
+      console.log(data._id);
+  
+      try {
+        const result = await EmpDetails(data._id, reqheader);
+        console.log(result);
+        setUserData(result.data);
+      } catch (error) {
+        console.error("Error fetching employer details:", error);
+      }
+    };
+  
+    if (jobData.userId) {
+      employerDetails();
+    }
+  }, [jobData]);
+  
 
   useEffect(() => {
     console.log("Updated jobData:", jobData);
 
-    const userId = JSON.parse(sessionStorage.getItem("existingUser"));
-    setUserData(userId);
-
     const currentDate = new Date().toLocaleDateString();
     console.log('Application submitted on:', currentDate);
     setApplies({
-      userID: userId._id,
+      userID: userData?._id,
       jobID: jobData._id,
-      name: userId.firstName,
-      email: userId.email,
+      name: userData?.firstName,
+      email: userData?.email,
       skills: jobData.skills,
       jobTitle: jobData.title,
       category: jobData.category,
@@ -84,7 +109,7 @@ function JobDetails() {
     });
 
     console.log(applies);
-  }, [jobData]);
+  }, [userData]);
 
   const applyJob = async () => {
     const currentDate = new Date().toLocaleDateString();
@@ -117,11 +142,24 @@ function JobDetails() {
       console.log(result);
 
       if (result.status === 200) {
-        alert("Applied Successfully");
-        navigate('/dashboard');
+        Swal.fire({
+          icon: 'success',
+          title: 'Applied Successfully',
+          showConfirmButton: false,
+          timer: 2000,
+        }).then(() => {
+          navigate('/dashboard');
+        });
       } else {
-        alert(result.response.data);
-        navigate('/dashboard');
+        Swal.fire({
+          icon: 'warning',
+          title: 'Application Error',
+          text: result.response.data,
+          showConfirmButton: false,
+          timer: 2000,
+        }).then(() => {
+          navigate('/dashboard');
+        });
       }
     } catch (error) {
       console.error("Error applying for the job:", error);
@@ -129,80 +167,65 @@ function JobDetails() {
   };
 
   return (
+    <div className='bg'>
+      <div className=' container '>
+        <div className='row'>
+          <div className="col-lg-8 mt-5" style={{ backgroundColor: "#f0ffff" }}>
+            <div className='border rounded p-5 w-100 dark flex-column '>
+              <h4 className='text-center mb-5 text-dark fw-bold'>Job Summary</h4>
+              <h5 className='mb-3'>Job Title: <span style={{ float: 'right', color: 'grey' }}>{jobData.title}</span></h5>
+              <h5 className='mb-3'>Published on:<span style={{ float: 'right', color: 'grey' }}>19/02/2023 19:24</span></h5>
+              <h5 className='mb-3'>Category :<span style={{ float: 'right', color: 'grey' }}> {jobData.category}</span></h5>
+              <h5 className='mb-3'>Skills Required:<span style={{ float: 'right', color: 'grey' }}>{jobData.skills}</span></h5>
+              <h5 className='mb-3'>Job Status: <span className='text-success' style={{ float: 'right', color: 'grey' }}>Active</span></h5>
+              <h5 className='mb-3'>Salary:<span style={{ float: 'right', color: 'grey' }}>{jobData.rates}</span></h5>
+              <h5>Application Deadline: <span style={{ float: 'right', color: 'grey' }}>April 28, 2024</span></h5>
 
-      <div className='bg' >
-          <div className=' container '  >
-            <div className='row'>
-              <div className="col-lg-8 mt-5" style={{ backgroundColor: "#f0ffff" }}>
-              <div className='border rounded p-5 w-100 dark flex-column ' >
-                <h4 className='text-center mb-5 text-dark'>Job Summary</h4>
-                <h5 className='mb-3'>Job Title: <span style={{ float:'right',color:'grey' }}>{jobData.title}</span></h5>
-                <h5 className='mb-3'>Published on:<span style={{ float:'right',color:'grey' }}>19/02/2023 19:24</span></h5>
-                <h5 className='mb-3'>Category :<span style={{ float:'right',color:'grey' }}> {jobData.category}</span></h5>
-                <h5 className='mb-3'>Skills Required:<span style={{ float:'right',color:'grey' }}>{jobData.skills}</span></h5>
-                <h5 className='mb-3'>Job Status: <span className='text-success' style={{ float:'right',color:'grey' }}>Active</span></h5>
-                <h5 className='mb-3'>Salary:<span style={{ float:'right',color:'grey' }}>{jobData.rates}</span></h5>
-                <h5>Application Deadline: <span style={{ float:'right',color:'grey' }}>April 28, 2024</span></h5>
-             
-                <h4 className='text-Dark mt-5'>Job Description</h4>
-                <p className='mt-4 mb-5' style={{ textAlign: 'justify' ,color:'grey'}}>{jobData.description}</p>
-                <Button onClick={applyJob} variant="contained" className='w-100' style={{ backgroundColor: '#C8E9E9' ,color:'blue'}}>Apply Now</Button>
-                </div>
-    
-            
-              </div>
-              <div className="col-lg-4 mt-5 border rounded shadow" style={{ backgroundColor: "#f0ffff" }}>
-                <div className='d-flex justify-content-center align-items-center ms-5'>
-                    <img src={`${baseurl}/uploads/${jobData.image}`} width={'100%'} alt="" className="img-fluid" />
-                </div>               
-                  <div className='ps-5 w-100 dark flex-column'>
-                  <h4 className='text-center text-dark mt-5 mb-5'>Company Information</h4>
-                  <h5 className='mb-3'>Company Name <span style={{ float:'right',color:'grey' }}> {userData?.firstName}</span></h5>
-                  <p>{userData?.about}</p>
-                  <h5 className='mb-3'>Category<span style={{ float:'right',color:'grey' }}> {userData?.category}</span></h5>
-                  <h5 className='mb-3'>Email<span style={{ float:'right',color:'grey' }}>{userData?.email}</span></h5>
-                  <h5 className='mb-3'>Phone<span style={{ float:'right',color:'grey' }}>{/* Replace with userData?.phone */}</span></h5>
-                  <h5 className='mb-3'>Location<span style={{ float:'right',color:'grey' }}>{/* Replace with userData?.location */}</span></h5>
-                  <Button  variant="contained"  onClick={handleShow} style={{ backgroundColor: 'blue' }}>Private Message</Button>
-    
-                 </div>
-    
-              </div>
+              <h4 className='text-Dark mt-5'>Job Description</h4>
+              <p className='mt-4 mb-5' style={{ textAlign: 'justify', color: 'grey' }}>{jobData.description}</p>
+              <Button onClick={applyJob} variant="contained" className='w-100' style={{ backgroundColor: '#C8E9E9', color: 'blue' }}>Apply Now</Button>
             </div>
-  
-            <Modal
+          </div>
+          <div className="col-lg-4 p-3 mt-5 border rounded shadow" style={{ backgroundColor: "#f0ffff" }}>
+            <div className='d-flex justify-content-center align-items-center '>
+              <img src={`${baseurl}/uploads/${jobData.image}`} width={'100%'} alt="" className="img-fluid" />
+            </div>
+            <div className=' w-100 dark flex-column'>
+              <h4 className='text-center text-dark mt-5 mb-5 fw-bold'>About the Client</h4>
+              <h5 className='mb-3'>Company Name <span style={{ float: 'right', color: 'grey' }}> {userData?.firstName}</span></h5>
+              <p>{userData?.about}</p>
+              <h5 className='mb-3'>Category<span style={{ float: 'right', color: 'grey' }}> {userData?.category}</span></h5>
+              <h5 className='mb-3'>Email<span style={{ float: 'right', color: 'grey' }}>{userData?.email}</span></h5>
+              <h5 className='mb-3'>Phone<span style={{ float: 'right', color: 'grey' }}>{/* Replace with userData?.phone */}</span></h5>
+              <h5 className='mb-3'>Location<span style={{ float: 'right', color: 'grey' }}>{/* Replace with userData?.location */}</span></h5>
+              {/* <Button  variant="contained"  onClick={handleShow} style={{ backgroundColor: 'blue' }}>Private Message</Button> */}
+            </div>
+          </div>
+        </div>
+        {/* <Modal
           show={show}
           onHide={handleClose}
           backdrop="static"
           keyboard={false}
-          style={{borderRadius:'50px'}}
-        >
-          <Modal.Header closeButton >
-            <Modal.Title className='text-center'>Skill<span style={{color:'yellowgreen'}}>spire</span> Connect</Modal.Title>
+          style={{ borderRadius: '50px' }}
+        > */}
+          {/* <Modal.Header closeButton >
+            <Modal.Title className='text-center'>Skill<span style={{ color: 'aqua' }}>spire</span> Connect</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-          <Form className='mt-5'>
-          
-        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-          {/* <Form.Label>Your Name</Form.Label> */}
-          <Form.Control type="text" className='border rounded text-dark'  placeholder="Your Name"   />
-        </Form.Group>
-  
+            <Form className='mt-5'>
+              <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                <Form.Control type="text" className='border rounded text-dark' onChange={(e) => setMessage({ ...message, name: e.target.value })} placeholder="Your Name" />
+              </Form.Group>
               <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1" >
-                {/* <Form.Label>Message</Form.Label> */}
-                <Form.Control as="textarea" rows={3}  placeholder='Message'  />
-            </Form.Group>
-            <button className='form-control btn btn-primary'>Send Message</button>
-  
-        
-        
-                </Form>
-  
+                <Form.Control as="textarea" rows={3} onChange={(e) => setMessage({ ...message, message: e.target.value })} placeholder='Message' />
+              </Form.Group>
+              <button className='form-control btn btn-primary'>Send Message</button>
+            </Form>
           </Modal.Body>
-         
-        </Modal>
-          </div>
+        </Modal> */}
       </div>
+    </div>
   );
 }
 

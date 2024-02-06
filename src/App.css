@@ -168,3 +168,31 @@ img{
   
     
   }
+
+  .dash-img{
+    
+    background:url('https://th.bing.com/th/id/R.19d16903562f7b7a59eb7b14e25d3608?rik=2WtNtK61952WSQ&riu=http%3a%2f%2fwww.mediafactory.org.au%2farfinta-ranesha%2ffiles%2f2018%2f05%2ffragments-ish-15u5g8j.jpg&ehk=dOzQ3AcJjAUgY5jRGbYBidRcIr%2bEY%2f1rYr5rs4hSvgU%3d&risl=&pid=ImgRaw&r=0');
+    background-size: contain;
+
+  
+}
+
+.swal2-popup {
+  overflow: hidden !important;
+}
+
+.shortbtn{
+  background: #0087d3;
+    border-radius: 4px;
+    font-family: var(--font-work-sans);
+    font-weight: 500;
+    font-size: .875rem;
+    color: #fff;
+    padding: 3px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    transition: .5s all ease;
+    z-index: 1;
+}

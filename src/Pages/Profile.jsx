@@ -9,6 +9,7 @@ function Profile() {
 
   const [userData,setUserData] = useState({
     username:"",
+    email:"",
     skills:"",
     rates:"",
     category:"",
@@ -16,7 +17,8 @@ function Profile() {
     education:"",
     services:"",
     profile:"",
-    phone:""
+    phone:"",
+    updated:""
   })
 
   const [existingImage,setExistingImage] = useState("")
@@ -27,6 +29,7 @@ function Profile() {
     setUserData({
       ...userData,
       username:logUser.firstName,
+      email:logUser.email,
       skills:logUser.skills,
       rates:logUser.rates,
       category:logUser.category,
@@ -34,7 +37,8 @@ function Profile() {
       education:logUser.education,
       services:logUser.services,
       profile:"",
-      phone:logUser.phone
+      phone:logUser.phone,
+      updated:"true"
 
 
       
@@ -63,8 +67,8 @@ function Profile() {
   }
   const saveProfile=async()=>{
     // setUser(true)
-    const {skills,rates,category,about,education,services,profile,phone} = userData
-    if (  !skills || !rates || !category ||  !about  || !education  || !services || !profile || !phone) {
+    const {skills,rates,category,about,education,services,profile,phone,updated} = userData
+    if (  !skills || !rates || !category ||  !about  || !education  || !services || !profile || !phone ) {
 
       alert("please fill the form completely to continue")
       
@@ -81,6 +85,8 @@ function Profile() {
       const user=  (JSON.parse(sessionStorage.getItem("existingUser"))._id)
       console.log(user);
       reqBody.append("phone",phone)
+      reqBody.append("updated",updated)
+
 
 
       const token = sessionStorage.getItem("token")
@@ -106,7 +112,7 @@ function Profile() {
 
 
 
-      <div className="row">
+      <div className="row border shadow">
         <div className="col-lg-8" style={{ borderTop: '5px solid #00A7AC' }}>
           <div className="row  "  >
             <div className="col-lg-5 p-3">
@@ -195,7 +201,7 @@ function Profile() {
             </div>
           </div>
         </div>
-        <div className="col-lg-4 ps-5 " style={{ borderTop: '5px solid #00A7AC' }}>
+        <div className="col-lg-4 p-5 " style={{ borderTop: '5px solid #00A7AC' }}>
           {user?
           <div className='border shadow mt-2'>
             <h5 className='text-center fw-bold text-dark'>Other Informations</h5> 

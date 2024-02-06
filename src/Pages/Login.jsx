@@ -7,7 +7,8 @@ import { loginAPI, registerAPI } from '../Services/allApi';
 import {useNavigate} from 'react-router-dom'
 import Logo from '../Images/Blue_Minimalist_Letter_D_Logo-removebg-preview.png'
 import { isAuthTokenContext } from '../context/ContextShare';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Login({register}) {
   const {isAuthToken , setIsAuthToken} = useContext(isAuthTokenContext)
@@ -16,11 +17,12 @@ function Login({register}) {
     const [logData,setLogData] = useState(
       {
         firstName:"",
-        lastName:"",
+       
         email:"",
         password:"",
         confirmPassword:"",
         uType:""
+
 
       }
     )
@@ -32,9 +34,9 @@ const registerFn = async(e)=>{
   e.preventDefault()
 
 
-  const {firstName,lastName,email,password,confirmPassword,uType} = logData
-  if (!firstName || !lastName || !email || !password || !confirmPassword || !uType) {
-    alert("Please fill the Form Complteley to Continue")
+  const {firstName ,email,password,confirmPassword,uType} = logData
+  if (!firstName || !email || !password || !confirmPassword || !uType) {
+toast.warning("Please Fill The Form Completely")
     console.log(logData);
     
   }
@@ -42,7 +44,7 @@ const registerFn = async(e)=>{
     const result = await registerAPI(logData)
     console.log(result);
     if (result.status==200) {
-      alert(`successfully registered`)
+      toast.success("Registration Successful")
       setLogData({
         firstName:"",
         lastName:"",
@@ -59,7 +61,7 @@ const registerFn = async(e)=>{
       navigate('/login')
   }
   else{
-    alert(result.response.data)
+    toast.error(result.response.data)
   }
 
 }
@@ -70,15 +72,15 @@ const loginfn = async(e)=>{
   e.preventDefault()
   const {email,password} = logData
   if ( !email || !password ) {
-      alert('please fill all details')
+    toast.warning("Please Fill The Form Completely")
       
   }
   else{
       const result = await loginAPI(logData)
       console.log(result);
       if (result.status===200) {
-          alert("Login Successfull")
-          setIsAuthToken(true)
+        toast.success("Login Success")
+        setIsAuthToken(true)
           console.log(isAuthToken);
 
           setLogData({
@@ -96,17 +98,17 @@ const loginfn = async(e)=>{
           sessionStorage.setItem("existingUser",JSON.stringify(result.data.existUser))
           sessionStorage.setItem("token",result.data.token)
 
+          setIsAuthToken(true)
 
           if (result.data.existUser.uType === "Employer") {
-            setIsAuthToken(true)
 
             navigate('/employerHome')
-            window.location.reload()
+            // window.location.reload()
             
           }
           else{
             navigate('/dashboard')
-            window.location.reload()
+            // window.location.reload()
           }
 
           //navigate to login
@@ -119,7 +121,7 @@ const loginfn = async(e)=>{
       }
       else{
           
-          alert(result.response.data)
+          toast.error(result.response.data)
       }
 
   }
@@ -138,10 +140,9 @@ const loginfn = async(e)=>{
             <hr  />
 
         { registerForm&&
-        <div className='d-flex mb-4  '>
-         <TextField id="outlined-basic" className='me-2' label="First Name" variant="outlined" onChange={(e)=>setLogData({...logData,firstName:e.target.value})} />
-         <TextField id="outlined-basic" label="Last Name" variant="outlined" onChange={(e)=>setLogData({...logData,lastName:e.target.value})} />
-         </div>}
+        
+         <TextField id="outlined-basic" className='me-2 w-100 mb-4' label="User Name" variant="outlined" onChange={(e)=>setLogData({...logData,firstName:e.target.value})} />
+         }
          <TextField id="outlined-basic" className='me-2 w-100 mb-4' label="Email" variant="outlined" onChange={(e)=>setLogData({...logData,email:e.target.value})} />
          <TextField type='password' id="outlined-basic" className='me-2 w-100 mb-4' label="Password" variant="outlined" onChange={(e)=>setLogData({...logData,password:e.target.value})} />
          
@@ -178,6 +179,7 @@ const loginfn = async(e)=>{
 
         </div>
         <div className="col-lg-4"></div>
+        <ToastContainer position='top-center' theme='colored' autoClose={2000}/>
 
     </div>
   )

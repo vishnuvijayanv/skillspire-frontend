@@ -6,6 +6,8 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { empUpdateAPI } from '../Services/allApi';
 import { baseurl } from '../Services/baseurl';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function EmpProfile() {
   const[isEmp,setIsEmp] = useState(false)
   const [preview,setPreview] = useState("")
@@ -67,7 +69,7 @@ const empProfileUpdate = async(e)=>{
   e.preventDefault()
   const{uid,cname,category,about,phone,email,address,profile,termsnconditions} = userData
   if (!cname || !category || !about || !phone || !email || !address || !profile || !termsnconditions) {
-    alert("please fill all details to update")
+    toast.warning("please fill all details to update")
   }
   else{
     const reqBody = new FormData()
@@ -97,7 +99,7 @@ const empProfileUpdate = async(e)=>{
     console.log(result.data);
     sessionStorage.setItem("existingUser",JSON.stringify(result.data))
     console.log(userData);
-    alert("profile Updated successfully")
+    toast.success("profile Updated successfully")
  
   }
   else{
@@ -150,7 +152,7 @@ const empProfileUpdate = async(e)=>{
         </Form.Group>
         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
           <Form.Label>Description</Form.Label>
-          <Form.Control className='border rounded' as="textarea" rows={3} onChange={(e)=>setUserData({...userData,about:e.target.value})}/>
+          <Form.Control className='border rounded' as="textarea" value={userData.about} rows={3} onChange={(e)=>setUserData({...userData,about:e.target.value})}/>
         </Form.Group>
   
           </Form>
@@ -184,7 +186,7 @@ const empProfileUpdate = async(e)=>{
              <Form>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                 <Form.Label>Phone</Form.Label>
-                <Form.Control className='border rounded' type="text" placeholder="Company Name/Employer Name"onChange={(e)=>setUserData({...userData,phone:e.target.value})} />
+                <Form.Control className='border rounded' type="text" value={userData.phone} placeholder="Company Name/Employer Name"onChange={(e)=>setUserData({...userData,phone:e.target.value})} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                 <Form.Label>Email</Form.Label>
@@ -192,12 +194,12 @@ const empProfileUpdate = async(e)=>{
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
         <Form.Label>Address</Form.Label>
-        <Form.Control className='border rounded' as="textarea" rows={3} onChange={(e)=>setUserData({...userData,address:e.target.value})}   />
+        <Form.Control className='border rounded' as="textarea" rows={3} value={userData.address} onChange={(e)=>setUserData({...userData,address:e.target.value})}   />
       </Form.Group>
               <h3 className='text-center mt-5'>Terms and Conditions:</h3>
               <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
         <Form.Label>Terms & Conditions</Form.Label>
-        <Form.Control className='border rounded' as="textarea" rows={3} onChange={(e)=>setUserData({...userData,termsnconditions:e.target.value})}/>
+        <Form.Control className='border rounded' as="textarea" rows={3} value={userData.termsnconditions} onChange={(e)=>setUserData({...userData,termsnconditions:e.target.value})}/>
       </Form.Group>
 <center>
         <Button className=' btn btn-success text-white border rounded' variant="outline-success w-75" onClick={empProfileUpdate}>Update</Button>{' '}
@@ -231,6 +233,8 @@ const empProfileUpdate = async(e)=>{
             </div>
           </div>
         </div>
+        <ToastContainer position='top-center' theme='colored' autoClose={2000}/>
+
     </div>
   )
 }

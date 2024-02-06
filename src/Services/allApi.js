@@ -105,3 +105,8 @@ export const getUserAppliesAPI = async(reqheader)=>{
 export const statusUpdate = async(id,reqbody,reqheader)=>{
    return await commonAPI('PUT',`${baseurl}/jobs/jobstatusupdate/${id}`,reqbody,reqheader)
  }
+ //get emp details
+
+ export const EmpDetails=async(id,reqheader)=>{
+   return await commonAPI ('GET',`${baseurl}/employer/details/${id}`,"",reqheader)
+ }

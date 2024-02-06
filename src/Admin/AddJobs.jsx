@@ -4,6 +4,8 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { addJobsAPI } from '../Services/allApi';
 import {useNavigate} from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function AddJobs() {
 
   const navigate = useNavigate()
@@ -25,7 +27,7 @@ function AddJobs() {
     const {title,category,image,description,rates,skills,type} = project
     if (!title || !category || !image || !description || !rates || !skills || !type) {
 
-      alert("Please Fill all the Details")
+      toast.warning("Please Fill all the Details")
       
     }
 
@@ -54,7 +56,7 @@ function AddJobs() {
       const result = await addJobsAPI(reqBody,reqheader)
       console.log(result);
       if (result.status === 200) {
-        alert('Job Added SuccessFully')
+        toast.success('Job Added SuccessFully')
         navigate('/employerHome')
 
         setProject({
@@ -69,7 +71,7 @@ function AddJobs() {
         })
       }
       else{
-        alert(result.response.data)                            
+        toast.error(result.response.data)                            
       }   
     }
   }
@@ -97,6 +99,10 @@ function AddJobs() {
       <option value="Digital Marketting">Digital Marketting</option>
       <option value="Writing">Writing</option>
       <option value="Media/Communication">Media/Communication</option>
+      <option value="Media/Communication">Customer Support</option>
+      <option value="Media/Communication">PhotoGraphy</option>
+
+
 
 
     </Form.Select>
@@ -155,6 +161,7 @@ function AddJobs() {
         <li><strong>Termination of Inactive Accounts:</strong> Inactive admin accounts may be terminated to maintain the quality and relevance of job listings on the platform.</li>
     </ul>
         </div>
+        <ToastContainer position='top-center' theme='colored' autoClose={2000}/>
 
     </div>
   )

@@ -50,19 +50,25 @@ const Footer = () => {
     <div style={footerStyle}>
       <div style={sectionStyle}>
         <h3 >About Us</h3>
-        <p className='text-dark'>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        <p className='text-dark me-3' style={{textAlign:'justify'}}>
+        Our platform connects skilled professionals with diverse expertise to clients seeking top-notch services. Whether you're a freelancer looking to showcase your talents or a business in need of specialized skills, Skillspire is the bridge that brings talent and projects together
         </p>
       </div>
       <div style={sectionStyle}>
         <h3 >Contact Us</h3>
         <p className='text-dark'>Address: 123 Main St, Cityville</p>
-        <p className='text-dark'>Email: info@example.com</p>
+        <p className='text-dark'>Email: skillspire@gmail.com</p>
         <p className='text-dark'>Phone: (555) 123-4567</p>
       </div>
       <div style={sectionStyle}>
-        <h3>Custom Section</h3>
-        <p className='text-dark'>This is a custom section. Feel free to add whatever content you like here.</p>
+        <h3>Social Media</h3>
+        <div className='d-flex flex-column'>
+          <a href='' style={{textDecoration:'none'}} className='text-dark mb-2'>Instagram</a>
+          <a href='' style={{textDecoration:'none'}} className='text-dark mb-2'>Twitter</a>
+          <a href='' style={{textDecoration:'none'}} className='text-dark mb-2'>Facebook</a>
+          <a href='' style={{textDecoration:'none'}} className='text-dark mb-2'>Linkedin</a>
+  
+        </div>
       </div>
       <div style={sectionStyle}>
         <h3>Newsletter</h3>
