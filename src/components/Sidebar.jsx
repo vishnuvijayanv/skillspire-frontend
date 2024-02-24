@@ -94,7 +94,7 @@ function Sidebar() {
             <i class="fa-regular fa-message me-4 text-primary"></i>Chat
           </Link>
           <Button
-            style={{marginTop:'200px'}}
+            style={{marginTop:'180px'}}
             className=" btn btn-danger w-100 side-menu  text-start mb-3 text-decoration-none d-block text-light"
             onClick={handleLogout}
           >

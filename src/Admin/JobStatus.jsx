@@ -56,90 +56,74 @@ function JobStatus() {
   },[jobReqStatus])
 
 
-  const shortlist =async (data) => {
-    console.log(data);
-
-    setApplies({
-      userID:data.userID,
-        jobID:data.jobID,
-        name:data.name,
-        email:data.email,
-        skills:data.skills,
-        jobTitle:data.jobTitle,
-        category:data.category,
-        rates:data.rates,
-        profile:data.profile,
-        jobDesc:data.jobDesc,
-        status:"Accepted",
-        time:data.time
-    })
-
-    console.log(applies);
+  const shortlist = async (data) => {
+    const updatedApplies = {
+      userID: data.userID,
+      jobID: data.jobID,
+      name: data.name,
+      email: data.email,
+      skills: data.skills,
+      jobTitle: data.jobTitle,
+      category: data.category,
+      rates: data.rates,
+      profile: data.profile,
+      jobDesc: data.jobDesc,
+      status: "Accepted",
+      time: data.time,
+    };
   
-
-    const id = data._id
-    console.log(id);
-
-    const token = sessionStorage.getItem("token")
-      console.log(token);
-      const reqheader = {
-        "Content-Type":"application/json",
-        "Authorization":`Bearer ${token}`
-      }
-    console.log(applies);
-
-    const result = await statusUpdate(id,applies,reqheader)
-    console.log(result);
-    jobRequest()
+    const id = data._id;
+  
+    const token = sessionStorage.getItem("token");
+    const reqheader = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    };
+  
+    await statusUpdate(id, updatedApplies, reqheader);
+    setApplies(updatedApplies);
   };
   
-  // Add useEffect to log the updated state
-  useEffect(() => {
-    console.log("Updated applies state:", applies);
-  }, [applies]);
+  const reject = async (data) => {
+    const updatedApplies = {
+      userID: data.userID,
+      jobID: data.jobID,
+      name: data.name,
+      email: data.email,
+      skills: data.skills,
+      jobTitle: data.jobTitle,
+      category: data.category,
+      rates: data.rates,
+      profile: data.profile,
+      jobDesc: data.jobDesc,
+      status: "Rejected",
+      time: data.time,
+    };
   
-
-  const reject =async (data) => {
-    console.log(data);
-    setApplies({
-      userID:data.userID,
-        jobID:data.jobID,
-        name:data.name,
-        email:data.email,
-        skills:data.skills,
-        jobTitle:data.jobTitle,
-        category:data.category,
-        rates:data.rates,
-        profile:data.profile,
-        jobDesc:data.jobDesc,
-        status:"Rejected",
-        time:data.time
-    })
-
-    console.log(applies);
+    const id = data._id;
   
-
-    const id = data._id
-    console.log(id);
-
-    const token = sessionStorage.getItem("token")
-      console.log(token);
-      const reqheader = {
-        "Content-Type":"application/json",
-        "Authorization":`Bearer ${token}`
-      }
-    console.log(applies);
-
-    const result = await statusUpdate(id,applies,reqheader)
-    console.log(result);
-    jobRequest()
+    const token = sessionStorage.getItem("token");
+    const reqheader = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    };
+  
+    await statusUpdate(id, updatedApplies, reqheader);
+    setApplies(updatedApplies);
   };
-
   
-  // Add useEffect to log the updated state
   useEffect(() => {
     console.log("Updated applies state:", applies);
+    // After `applies` state is updated, trigger the job request
+    jobRequest();
   }, [applies]);
+  
+  useEffect(() => {
+    // Log or perform actions when adminJobData changes
+    console.log(adminJobData);
+  }, [adminJobData]);
+  
+
   
   
   return (

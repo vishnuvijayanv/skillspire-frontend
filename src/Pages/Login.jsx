@@ -103,12 +103,12 @@ const loginfn = async(e)=>{
           if (result.data.existUser.uType === "Employer") {
 
             navigate('/employerHome')
-            // window.location.reload()
+            window.location.reload()
             
           }
           else{
             navigate('/dashboard')
-            // window.location.reload()
+            window.location.reload()
           }
 
           //navigate to login
